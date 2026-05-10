@@ -138,6 +138,37 @@ fun ListaSimples(modifier: Modifier = Modifier, viewModel: ProdutoViewModel = vi
 
 }
 
+@Composable
+fun ListaGrid(modifier: Modifier = Modifier, viewModel: ProdutoViewModel = viewModel()) {
+    val state by viewModel.state.collectAsState()
+    val contexto = LocalContext.current
+
+    LazyVerticalGrid(
+        columns = GridCells.Fixed(2),
+        modifier = modifier
+    ) {
+        items(state.produtos, key = { produto -> produto.id }) { produto ->
+            ProdutoCard(produto = produto) {
+                Toast.makeText(contexto, "Clicou em ${produto.nome}", Toast.LENGTH_LONG).show()
+            }
+        }
+    }
+}
+
+@Composable
+fun ListaRow(modifier: Modifier = Modifier, viewModel: ProdutoViewModel = viewModel()) {
+    val state by viewModel.state.collectAsState()
+    val contexto = LocalContext.current
+
+    LazyRow(modifier = modifier) {
+        items(state.produtos, key = { produto -> produto.id }) { produto ->
+            ProdutoCard(produto = produto) {
+                Toast.makeText(contexto, "Clicou em ${produto.nome}", Toast.LENGTH_LONG).show()
+            }
+        }
+    }
+}
+
 
 @Composable
 fun Greeting(name: String, modifier: Modifier = Modifier) {
